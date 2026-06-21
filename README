@@ -9,14 +9,44 @@ Features:
 2. Prompt: A prompt is the input message sent to an AI model to generate a desired response.
 It can contain instructions, context, examples, and constraints that guide the model's behavior.
 
+Prompt: Explain Spring Boot in simple terms.
+Response: Spring Boot is a framework that simplifies the process of creating Spring applications by providing default configurations and conventions.
+
 3. StructureOutput: It is used to generate structured data (e.g., JSON, Java Objects, Records) from an LLM response based on a given prompt.
+
+Prompt:
+Generate employee details.
+
+Structured Output:
+{
+  "name": "John",
+  "salary": 50000,
+  "department": "IT"
+}
 
 4. ChatMemory: It stores previous conversation messages and uses them to maintain context across multiple interactions.
 
+User: My name is Raushan.
+(Chat Memory stores this)
+User: What is my name?
+AI: Your name is Raushan.
+
 5. Multimodality: It allows an AI model to work with multiple types of data (text, images, audio, video, code, etc.) within a single application.
+
+Input:
+- Text: "What do you see in this image?"
+- Image: photo.jpg
+
+Output:
+- "The image shows a beach during sunset."
 
 6. RAG (Retrieval-Augmented Generation): It retrieves relevant information from external knowledge sources (documents, databases, vector stores, etc.)
 and provides that context to the LLM, enabling it to generate more accurate, relevant, and up-to-date responses.
+
+RAG Process:
+1. Retrieve relevant documents from a vector store.
+2. Add the retrieved context to the prompt.
+3. Generate an answer using the LLM.
 
 Spring AI Applications: Spring AI can be used to build intelligent applications such as chatbots, question-answering systems, content generation tools,
 document analysis solutions, recommendation systems, AI agents, and RAG-based knowledge assistants.
