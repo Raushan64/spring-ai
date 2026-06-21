@@ -1,0 +1,4 @@
+Spring AI:
+- First create API KEY from any LLM(OpenAI, Gemini, Claud....) and add dependency acording to the LLM in your project.
+- Configure the API Key in environment variable and application properties file.
+- And Play Spring AI features like chat, prompt, structureoutput, chatmemory, multimodel, rag...
