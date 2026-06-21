@@ -2,3 +2,23 @@ Spring AI:
 - First create API KEY from any LLM(OpenAI, Gemini, Claud....) and add dependency acording to the LLM in your project.
 - Configure the API Key in environment variable and application properties file.
 - And Play Spring AI features like chat, prompt, structureoutput, chatmemory, multimodel, rag...
+
+Features:
+1. Chat: It provides a conversational interface for communicating with an LLM using a series of messages, enabling context-aware and multi-turn interactions.
+
+2. Prompt: A prompt is the input message sent to an AI model to generate a desired response.
+It can contain instructions, context, examples, and constraints that guide the model's behavior.
+
+3. StructureOutput: It is used to generate structured data (e.g., JSON, Java Objects, Records) from an LLM response based on a given prompt.
+
+4. ChatMemory: It stores previous conversation messages and uses them to maintain context across multiple interactions.
+
+5. Multimodality: It allows an AI model to work with multiple types of data (text, images, audio, video, code, etc.) within a single application.
+
+6. RAG (Retrieval-Augmented Generation): It retrieves relevant information from external knowledge sources (documents, databases, vector stores, etc.)
+and provides that context to the LLM, enabling it to generate more accurate, relevant, and up-to-date responses.
+
+Spring AI Applications: Spring AI can be used to build intelligent applications such as chatbots, question-answering systems, content generation tools,
+document analysis solutions, recommendation systems, AI agents, and RAG-based knowledge assistants.
+
+Note: In Chat, when ever you ask to write the context that context is called prompt.
