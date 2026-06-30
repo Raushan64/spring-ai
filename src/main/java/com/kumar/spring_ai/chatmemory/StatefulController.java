@@ -21,11 +21,10 @@ public class StatefulController {
     @GetMapping("/memory")
     public String home(@RequestParam String message) {
         return chatClient.prompt()
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, "demo"))
                 .user(message)
                 .call()
                 .content();
     }
-
-    // chat memory does not support free version
 
 }

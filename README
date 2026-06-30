@@ -43,14 +43,146 @@ Output:
 6. RAG (Retrieval-Augmented Generation): It retrieves relevant information from external knowledge sources (documents, databases, vector stores, etc.)
 and provides that context to the LLM, enabling it to generate more accurate, relevant, and up-to-date responses.
 
+Test Url: http://localhost:8080/rag/query?question=How many annual leaves do employees get?
+
 RAG Process:
 1. Retrieve relevant documents from a vector store.
 2. Add the retrieved context to the prompt.
 3. Generate an answer using the LLM.
 
-Spring AI Applications: Spring AI can be used to build intelligent applications such as chatbots, question-answering systems, content generation tools,
-document analysis solutions, recommendation systems, AI agents, and RAG-based knowledge assistants.
+Embeddings Model: It converts text into numbers (vectors).
+Example:
+Text: Notice Period : 60 Days
+The embedding model converts it into something like: [0.23, -0.89, 0.41, 0.76, ...]
+This list of numbers is called an embedding or vector.
 
-Note: In Chat, when ever you ask to write the context that context is called prompt.
+Vector Store: It is a database that stores:
+1. The original document
+2. Its embedding (vector)
+| Document                | Embedding              |
+| ----------------------- | ---------------------- |
+| Annual Leave : 20       | [0.12, 0.43, 0.99...]  |
+| Notice Period : 60 Days | [0.51, -0.22, 0.67...] |
+| Office Timing : 9:30 AM | [0.75, 0.11, -0.28...] |
+
+Note: This vector is only used for searching in the Vector Store.
+
+How does retrieval work?
+---------------------------
+Suppose the user asks:
+What is the notice period?
+The embedding model converts the question into a vector:
+Question
+↓
+[0.50, -0.20, 0.68...]
+
+The Vector Store compares this vector with every stored vector.
+Notice Period vector
+[0.51, -0.22, 0.67...]
+Similarity = 99%
+
+It retrieves the matching document.
+
+RAG Flow:
+User Question (Text)
+        │
+        ▼
+Embedding Model
+        │
+        ▼
+Question Vector
+        │
+        ▼
+Vector Store
+        │
+        ▼
+Retrieved Documents (Original Text)
+        │
+        ▼
+Build Prompt
+
+Context:
+Notice Period : 60 Days
+
+Question:
+What is the notice period?
+
+        │
+        ▼
+LLM
+        │
+        ▼
+Answer:
+The notice period is 60 days.
+
+
+7. Tools: Tool is a Java method that the LLM can invoke when it needs external information or needs to perform an action.
+- Without tools, an LLM can only answer based on its training data, With tools, it can access live data and execute real business logic.
+ User
+   |
+  LLM
+   |
+  Tool
+   |
+Weather API
+   |
+Weather Data(Json)
+   |
+  LLM (User Question, Weather Data)
+   |
+ Final Human Response
+
+
+| Feature                 | Tool                               | RAG                                 |
+| ----------------------- | ---------------------------------- | ----------------------------------- |
+| Purpose                 | Perform actions or fetch live data | Retrieve information from documents |
+| Data Source             | APIs, DB, Java methods             | Vector Store                        |
+| Live Data               | ✅ Yes                              | ❌ Usually No                        |
+| Executes Business Logic | ✅ Yes                              | ❌ No                                |
+| Example                 | Weather API                        | Company Policy                      |
+
+
+8.MCP (Model Context Protocol): It is standard protocol that allows an LLM to communicate with external applications, tools, databases, IDEs, file systems, GitHub, Slack, etc.
+Without MCP
+User
+   │
+  LLM
+   ├── Tool 1
+   ├── Tool 2
+   ├── Tool 3
+   └── Tool 4
+Every application writes its own integration.
+With MCP
+User
+   │
+  LLM
+   │
+MCP Client
+   │
+──────────────────────────
+│          │          │
+MCP Server MCP Server MCP Server
+(File)    (GitHub)   (Database)
+Instead of every AI application writing custom integrations, they all speak the same protocol.
+Exactly like:
+JDBC → Database
+REST → Web Services
+HTTP → Browsers
+MCP is becoming the standard protocol for AI.
+example:
+User(Show all open Jira tickets assigned to me)
+     ↓
+    LLM
+     ↓
+Jira MCP Server
+     ↓
+Jira REST API
+     ↓
+   Result
+     ↓
+LLM explains.
+
+Note: Create MCP server to talk to external sources(Database, Files System, GitHub, Slack, REST APIs, etc).
+      embeddings -> vectors -> numbers > all are same thing. It is just a representation of text in numbers.
 
 Reference: https://www.youtube.com/watch?v=FzLABAppJfM&t=4796s
